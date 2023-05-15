@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: producer
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      mode: always
+      platform: h2
+
+  datasource:
+    url: jdbc:h2:mem:productDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: false
+
+petStore:
+  url: https://petstore.swagger.io/v2
+
+springdoc:
+  packagesToScan: com.example.controller
+
+logging:
+  level:
+    root: INFO
+    com.example.client.ServiceClient: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+server:
+  servlet:
+    context-path: /v1/example
+
+kafka-producer-config:
+  bootstrap-servers: localhost:9092
+  schema-registry-url-key: schema.registry.url
+  schema-registry-url: http://localhost:8081
+  key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+  acks: all
+  retry-count: 5
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans

@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "namespace": "com.example",
+  "name": "ClientAvro",
+  "doc": "Avro Schema for our Client",
+  "fields": [
+    { "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "ID from the database for the client"
+    },
+    { "name": "name", "type": "string", "doc": "First name of client" },
+    { "name": "lastName", "type": "string", "doc": "Last name of the client" },
+    { "name": "dni", "type": "string", "doc": "DNI of the client" }
+  ]
+}

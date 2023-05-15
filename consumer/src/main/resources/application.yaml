@@ -1,0 +1,26 @@
+server:
+  port: 8079
+
+spring:
+  application:
+    name: "consumer"
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+kafka-config:
+  bootstrap-servers: localhost:9092
+  schema-registry-url-key: schema.registry.url
+  schema-registry-url: http://localhost:8081
+
+kafka-consumer-config:
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+  auto-offset-reset: earliest
+  specific-avro-reader-key: specific.avro.reader
+  specific-avro-reader: true
